@@ -1,5 +1,5 @@
 import { getCustomRepository, getRepository, In } from 'typeorm';
-import csvPars from 'csv-parse';
+import csvParse from 'csv-parse';
 import fs from 'fs';
 
 import Transaction from '../models/Transaction';
@@ -21,7 +21,7 @@ class ImportTransactionsService {
 
     const contactsReadStream = fs.createReadStream(filePath);
 
-    const parsers = csvPars({
+    const parsers = csvParse({
       from_line: 2,
     });
 
@@ -50,7 +50,7 @@ class ImportTransactionsService {
     });
 
     const existentCategoriesTitles = existentCategories.map(
-      (category: Category) => category.title,
+      category => category.title,
     );
 
     const addcategoryTitles = categories
@@ -68,7 +68,7 @@ class ImportTransactionsService {
 
     const finalCategories = [...newCategories, ...existentCategories];
 
-    const createdTransactios = transactionRepository.crete(
+    const createdTransactios = transactionRepository.create(
       transactions.map(transaction => ({
         title: transaction.title,
         type: transaction.type,
